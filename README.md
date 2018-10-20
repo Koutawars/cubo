@@ -1,5 +1,5 @@
 # Cube
-Game like bomberman make in node js with socket io.
+Cube make in js with 2D context
 
 DEMO -----> [link](http://cubo.herokuapp.com/.
 
