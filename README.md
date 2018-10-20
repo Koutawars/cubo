@@ -1,4 +1,4 @@
-# bomber-demo
+# Cubo
 Game like bomberman make in node js with socket io.
 
 DEMO -----> [link](http://cubo.herokuapp.com/.
