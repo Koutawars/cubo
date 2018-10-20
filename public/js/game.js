@@ -115,3 +115,59 @@ function showPunto(x, y){
     ctx.strokeStyle = '#003300';
     ctx.stroke();
 }
+document.getElementById("input0").value = numScale;
+document.getElementById("input0").addEventListener("keyup", e =>{
+    if(/[0-9]+/i.test(e.srcElement.value)){
+        numScale = parseInt( e.srcElement.value);
+    }else{
+        numScale = 50;
+    }
+});
+document.getElementById("input1").value = angleSum;
+document.getElementById("input1").addEventListener("keyup", e =>{
+    if(/[0-9]+/i.test(e.srcElement.value)){
+        angleSum = parseInt( e.srcElement.value);
+    }else{
+        angleSum = 50;
+    }
+});
+document.getElementById("input2").value = rotar;
+document.getElementById("input2").addEventListener("change", e =>{
+    rotar = parseInt( e.srcElement.value);
+    if(rotar >6){
+        rotar = 4;
+    }
+});
+document.getElementById("input3").value = radioDeRotacionX;
+document.getElementById("input3").addEventListener("keyup", e =>{
+    if(/[0-9]+/i.test(e.srcElement.value)){
+        radioDeRotacionX = parseInt( e.srcElement.value);
+    }else{
+        radioDeRotacionX = 0;
+    }
+});
+document.getElementById("input4").value = radioDeRotacionY;
+document.getElementById("input4").addEventListener("keyup", e =>{
+    if(/[0-9]+/i.test(e.srcElement.value)){
+        radioDeRotacionY = parseInt( e.srcElement.value);
+    }else{
+        radioDeRotacionY = 0;
+    }
+});
+document.getElementById("input5").value = movX;
+document.getElementById("input5").addEventListener("keyup", e =>{
+    if(/[0-9]+/i.test(e.srcElement.value)){
+        movX = parseInt(e.srcElement.value);
+    }else{
+        movX = canvas.width/2;
+    }
+});
+
+document.getElementById("input6").value = movY;
+document.getElementById("input6").addEventListener("keyup", e =>{
+    if(/[0-9]+/i.test(e.srcElement.value)){
+        movY = parseInt(e.srcElement.value);
+    }else{
+        movY = canvas.height/2;
+    }
+});

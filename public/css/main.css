@@ -2,3 +2,15 @@ body {
     margin: 0px;
     overflow:hidden;
 }
+div#container {
+    position: absolute;
+    padding: 19px;
+    top: 20%;
+    background-color: rgba(255,255,255,1);
+}
+.clear {
+    clear: both;
+}
+.cuadro {
+    margin-top: 6px;
+}
