@@ -20,12 +20,15 @@ var loop = {
         ctx.fillRect(0,0, canvas.width,canvas.height);
     },
     Update: function(){
+        draw();
         loop.aps++;
     },
     Draw: function(){
+        update();
         loop.fps++;
     }
 };
 document.addEventListener('DOMContentLoaded', function(){
+    setup();
     loop.iterar();
 });
