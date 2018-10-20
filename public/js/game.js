@@ -1,4 +1,3 @@
-
 var puntos = [[[1],[1],[1]],
             [[-1],[1],[1]],
             [[1],[-1],[1]],
@@ -7,16 +6,20 @@ var puntos = [[[1],[1],[1]],
             [[-1],[1],[-1]],
             [[1],[-1],[-1]],
             [[-1],[-1],[-1]]];
+var puntosSave = puntos;
 var trans3Dto2D = [[1,0,0],[0,1,0], [0,0,1]];
 
 var numScale = 50;
 var angleNow = 0;
 var angleSum = 0.01;
 var rotar = 0;
+var radioDeRotacionX = 0;
+var radioDeRotacionY = 0;
 
 var tam = 5;
 function setup(){
-    console.log("numScale: escalar, angleSum: gira mas rapido, rotar: 0,1,2,3,4,5,6")
+    console.log("numScale: escalar, angleSum: gira mas rapido, rotar: 0,1,2,3,4,5,6, - radioDeRotacionX/radioDeRotacionY: radio de rotacion");
+    let m = [];
 }
 
 function update(){
@@ -26,7 +29,11 @@ function update(){
 function draw(){
     ctx.save();
     ctx.transform(1,0,0,1,canvas.width/2,canvas.height/2);
-    let m;
+    let m, k = [];
+    for(let i = 0; i < puntos.length; i++){
+        k.push(sumMatriz(puntos[i],[[Math.floor((radioDeRotacionX/numScale))],[Math.floor((radioDeRotacionY/numScale))], [0]]));
+    }
+    puntos = k;
     for(let i = 0; i < puntos.length; i++){
         m = puntos[i];
         // se escala
@@ -72,7 +79,7 @@ function draw(){
     }
     
     angleNow += angleSum;
-
+    puntos = puntosSave;
     ctx.restore();
 }
 function scale(a){
