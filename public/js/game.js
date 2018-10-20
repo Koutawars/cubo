@@ -16,10 +16,13 @@ var rotar = 0;
 var radioDeRotacionX = 0;
 var radioDeRotacionY = 0;
 
+var movX = canvas.width/2;
+var movY = canvas.height/2;
+
 var tam = 5;
 function setup(){
     console.log("numScale: escalar, angleSum: gira mas rapido, rotar: 0,1,2,3,4,5,6, - radioDeRotacionX/radioDeRotacionY: radio de rotacion");
-    let m = [];
+    console.log("movX: posición en X, movY: posicion en Y");
 }
 
 function update(){
@@ -27,8 +30,8 @@ function update(){
 
 
 function draw(){
-    ctx.save();
-    ctx.transform(1,0,0,1,canvas.width/2,canvas.height/2);
+    //ctx.save();
+    //ctx.transform(1,0,0,1,canvas.width/2,canvas.height/2);
     let m, k = [];
     for(let i = 0; i < puntos.length; i++){
         k.push(sumMatriz(puntos[i],[[Math.floor((radioDeRotacionX/numScale))],[Math.floor((radioDeRotacionY/numScale))], [0]]));
@@ -70,7 +73,7 @@ function draw(){
         // se pasa de 3d a 2D
         m = multiMatrix(m, trans3Dto2D);
         ctx.beginPath();
-        ctx.arc(m[0][0], m[1][0], tam, 0, 2 * Math.PI, false);
+        ctx.arc(m[0][0] + movX, m[1][0] + movY, tam, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'green';
         ctx.fill();
         ctx.lineWidth = 2;  
@@ -80,7 +83,7 @@ function draw(){
     
     angleNow += angleSum;
     puntos = puntosSave;
-    ctx.restore();
+    //ctx.restore();
 }
 function scale(a){
     return [[a,0,0],[0,a,0],[0,0,a]];
