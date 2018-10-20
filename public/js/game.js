@@ -16,6 +16,7 @@ var angleSum = 0.01;
 var rotar = 3;
 var radioDeRotacionX = 0;
 var radioDeRotacionY = 0;
+var radioDeRotacionZ = 0;
 
 var movX = canvas.width/2;
 var movY = canvas.height/2; 
@@ -31,7 +32,7 @@ function update(){
 function draw(){
     let m, k = [];
     for(let i = 0; i < puntos.length; i++){
-        k.push(sumMatriz(puntos[i],[[Math.floor((radioDeRotacionX/numScale))],[Math.floor((radioDeRotacionY/numScale))], [0]]));
+        k.push(sumMatriz(puntos[i],[[Math.floor((radioDeRotacionX/numScale))],[Math.floor((radioDeRotacionY/numScale))], [Math.floor(radioDeRotacionZ/numScale)]]));
     }
     puntos = k;
     for(let i = 0; i < puntos.length; i++){
@@ -150,6 +151,14 @@ document.getElementById("input4").addEventListener("keyup", e =>{
         radioDeRotacionY = parseInt( e.srcElement.value);
     }else{
         radioDeRotacionY = 0;
+    }
+});
+document.getElementById("input7").value = radioDeRotacionZ;
+document.getElementById("input7").addEventListener("keyup", e =>{
+    if(/[0-9]+/i.test(e.srcElement.value)){
+        radioDeRotacionZ = parseInt( e.srcElement.value);
+    }else{
+        radioDeRotacionZ = 0;
     }
 });
 document.getElementById("input5").value = movX;
