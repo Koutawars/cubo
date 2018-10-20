@@ -12,7 +12,7 @@ var trans3Dto2D = [[1,0,0],[0,1,0], [0,0,1]];
 var numScale = 50;
 var angleNow = 0;
 var angleSum = 0.01;
-var rotar = 0;
+var rotar = 6;
 
 var tam = 5;
 function setup(){
