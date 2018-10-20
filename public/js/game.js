@@ -22,8 +22,6 @@ var movY = canvas.height/2;
 
 var tam = 5;
 function setup(){
-    console.log("numScale: escalar, angleSum: gira mas rapido, rotar: 0,1,2,3,4,5,6, - radioDeRotacionX/radioDeRotacionY: radio de rotacion");
-    console.log("movX: posición en X, movY: posicion en Y");
 }
 
 function update(){
