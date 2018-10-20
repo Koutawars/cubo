@@ -26,3 +26,22 @@ function MatrixToVector(a){
     }
     return retVect;
 }
+
+function sumMatriz(a, b){
+   if(a[0].length == b[0].length && a.length == b.length){
+       let retMatrix = [];
+       let matrixTemp = [];
+       let sum = 0;
+        for(let i = 0; i < a.length; i++){
+            for(let j = 0; j < b[0].length;j++){
+                matrixTemp.push(a[i][j]+b[i][j]);
+            }
+            retMatrix.push(matrixTemp)
+            matrixTemp = [];
+        }
+        return retMatrix;
+   }else{
+       console.error("Error at sum matrix");
+       return null;
+   }
+}
