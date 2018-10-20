@@ -125,9 +125,9 @@ document.getElementById("input0").addEventListener("keyup", e =>{
 document.getElementById("input1").value = angleSum;
 document.getElementById("input1").addEventListener("keyup", e =>{
     if(/[0-9]+/i.test(e.srcElement.value)){
-        angleSum = parseInt( e.srcElement.value);
+        angleSum = parseInt(e.srcElement.value);
     }else{
-        angleSum = 50;
+        angleSum = 0.01;
     }
 });
 document.getElementById("input2").value = rotar;
