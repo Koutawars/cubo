@@ -1,7 +1,7 @@
-# Cubo
-Game like bomberman make in node js with socket io.
+# Cube
+Cube make in js with 2D context
 
-DEMO -----> [link](http://cubo.herokuapp.com/.
+DEMO -----> [link](http://cubo.herokuapp.com/).
 
 ## Requirements
 * install [git](https://git-scm.com/downloads).
