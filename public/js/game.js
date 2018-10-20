@@ -1,23 +1,24 @@
 var puntos = [[[1],[1],[1]],
-            [[-1],[1],[1]],
             [[1],[-1],[1]],
             [[-1],[-1],[1]],
+            [[-1],[1],[1]],
             [[1],[1],[-1]],
-            [[-1],[1],[-1]],
             [[1],[-1],[-1]],
-            [[-1],[-1],[-1]]];
+            [[-1],[-1],[-1]],
+            [[-1],[1],[-1]]];
+var position = [];
 var puntosSave = puntos;
 var trans3Dto2D = [[1,0,0],[0,1,0], [0,0,1]];
 
 var numScale = 50;
 var angleNow = 0;
 var angleSum = 0.01;
-var rotar = 0;
+var rotar = 3;
 var radioDeRotacionX = 0;
 var radioDeRotacionY = 0;
 
 var movX = canvas.width/2;
-var movY = canvas.height/2;
+var movY = canvas.height/2; 
 
 var tam = 5;
 function setup(){
@@ -30,8 +31,6 @@ function update(){
 
 
 function draw(){
-    //ctx.save();
-    //ctx.transform(1,0,0,1,canvas.width/2,canvas.height/2);
     let m, k = [];
     for(let i = 0; i < puntos.length; i++){
         k.push(sumMatriz(puntos[i],[[Math.floor((radioDeRotacionX/numScale))],[Math.floor((radioDeRotacionY/numScale))], [0]]));
@@ -72,18 +71,20 @@ function draw(){
         }
         // se pasa de 3d a 2D
         m = multiMatrix(m, trans3Dto2D);
-        ctx.beginPath();
-        ctx.arc(m[0][0] + movX, m[1][0] + movY, tam, 0, 2 * Math.PI, false);
-        ctx.fillStyle = 'green';
-        ctx.fill();
-        ctx.lineWidth = 2;  
-        ctx.strokeStyle = '#003300';
-        ctx.stroke();
+        position[i] = {x:m[0][0] + movX, y:m[1][0] + movY}
     }
     
     angleNow += angleSum;
+    for(var i = 0; i < 4; i++){
+        unir(position[i], position[(i+1)%4]);
+        unir(position[i+4], position[(i+1)%4 + 4]);
+        unir(position[i], position[i+4]);
+    }
+
+    position.forEach(punto=> {
+        showPunto(punto.x, punto.y);
+    })
     puntos = puntosSave;
-    //ctx.restore();
 }
 function scale(a){
     return [[a,0,0],[0,a,0],[0,0,a]];
@@ -97,4 +98,20 @@ function rotateX(angle){
 
 function rotateY(angle){
     return [[Math.cos(angle),0,Math.sin(angle)],[0,1,0],[-Math.sin(angle),0, Math.cos(angle)]];
+}
+
+function unir(initial, final){
+    ctx.beginPath();
+    ctx.moveTo(initial.x,initial.y);
+    ctx.lineTo(final.x,final.y);
+    ctx.stroke();
+}
+function showPunto(x, y){
+    ctx.beginPath();
+    ctx.arc(x, y, tam, 0, 2 * Math.PI, false);
+    ctx.fillStyle = 'green';
+    ctx.fill();
+    ctx.lineWidth = 2;  
+    ctx.strokeStyle = '#003300';
+    ctx.stroke();
 }
