@@ -69,7 +69,7 @@ function draw(){
             m = multiMatrix(m, rotateZ(angleNow));
             break;
             default:
-            m = multiMatrix(m, rotateL(0, Math.cos(angulo), Math.sin(angulo)));
+            m = multiMatrix(m, rotateL(angleNow, Math.cos(angulo), Math.sin(angulo)));
             break;
         }
         // se pasa de 3d a 2D
