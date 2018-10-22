@@ -2,14 +2,17 @@ function multiMatrix(a, b){
     if(a.length == b[0].length){
         let sum = 0;
         let retMatrix = [];
-        for(let i = 0; i < a[0].length; i++){
-            for(let j = 0; j < b.length;j++){
-                for(let k = 0; k < b[0].length; k++){
-                    sum += a[k][i] * b[j][k];
+        let column = [];
+        for(let i = 0; i < b.length; i++){
+            for(let j = 0; j < a[0].length; j++){
+                for(let k = 0; k < b[0].length;k++){
+                    sum += a[k][j] * b[i][k];
                 }
-                retMatrix.push([sum]);
+                column.push(sum);
                 sum = 0;
             }
+            retMatrix.push(column);
+            column = [];
         }
         return retMatrix;
     }else{

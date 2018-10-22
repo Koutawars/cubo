@@ -14,6 +14,9 @@ div#container {
 .cuadro {
     margin-top: 6px;
 }
-input, select {
+input, select, #auto {
     float: right;
+}
+span#auto {
+    padding-left: 10px;
 }

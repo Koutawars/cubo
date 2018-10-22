@@ -8,7 +8,7 @@ var puntos = [[[1],[1],[1]],
             [[-1],[1],[-1]]];
 var position = [];
 var puntosSave = puntos;
-var trans3Dto2D = [[1,0,0],[0,1,0], [0,0,1]];
+var trans3Dto2D = [[1,0,0],[0,1,0]];
 
 var numScale = 50;
 var angleNow = 0;
@@ -20,6 +20,7 @@ var radioDeRotacionZ = 0;
 
 var movX = canvas.width/2;
 var movY = canvas.height/2; 
+var angulo = 0;
 
 var tam = 5;
 function setup(){
@@ -67,26 +68,34 @@ function draw(){
             m = multiMatrix(m, rotateY(angleNow));
             m = multiMatrix(m, rotateZ(angleNow));
             break;
+            default:
+            m = multiMatrix(m, rotateL(angleNow, Math.cos(angulo), Math.sin(angulo)));
+            break;
         }
         // se pasa de 3d a 2D
         m = multiMatrix(m, trans3Dto2D);
         position[i] = {x:m[0][0] + movX, y:m[1][0] + movY}
     }
     
-    angleNow += angleSum;
+    angleNow = angleSum + angleNow % (2*Math.PI);
     for(var i = 0; i < 4; i++){
         unir(position[i], position[(i+1)%4]);
         unir(position[i+4], position[(i+1)%4 + 4]);
         unir(position[i], position[i+4]);
     }
-
-    position.forEach(punto=> {
-        showPunto(punto.x, punto.y);
-    })
     puntos = puntosSave;
 }
 function scale(a){
     return [[a,0,0],[0,a,0],[0,0,a]];
+}
+function rotateL(angle, x, y, z = 0){
+    let cos = Math.cos(angle);
+    let sen = Math.sin(angle);
+    return [
+            [cos + x*x*(1-cos)   , x*y*(1-cos) - z*sen , x*z*(1-cos) + y*sen],
+            [y*x*(1-cos) + z*sen , cos + y*y*(1-cos)   , y*z*(1-cos) - x*sen],
+            [z*x*(1-cos) - y*sen , z*y*(1-cos) + x*sen , cos + z*z*(1-cos)]
+            ];
 }
 function rotateZ(angle){
     return [[Math.cos(angle),Math.sin(angle),0],[-Math.sin(angle),Math.cos(angle),0],[0,0,1]];
@@ -101,19 +110,17 @@ function rotateY(angle){
 
 function unir(initial, final){
     ctx.beginPath();
+    ctx.lineWidth = 2*(numScale/50);
+    ctx.strokeStyle = '#003300';
     ctx.moveTo(initial.x,initial.y);
     ctx.lineTo(final.x,final.y);
     ctx.stroke();
 }
-function showPunto(x, y){
-    ctx.beginPath();
-    ctx.arc(x, y, tam, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'green';
-    ctx.fill();
-    ctx.lineWidth = 2;  
-    ctx.strokeStyle = '#003300';
-    ctx.stroke();
-}
+document.body.addEventListener("wheel", function (e) {
+    numScale += e.wheelDelta > 0 ? 5: -5; 
+    document.getElementById("input0").value = numScale;
+});
+
 document.getElementById("input0").value = numScale;
 document.getElementById("input0").addEventListener("keyup", e =>{
     if(/[0-9]+/i.test(e.srcElement.value)){
@@ -136,6 +143,9 @@ document.getElementById("input2").addEventListener("change", e =>{
     if(rotar >6){
         rotar = 4;
     }
+});
+document.getElementById("rotation").addEventListener("change", e =>{
+    rotar = e.srcElement.checked ? 3:1000;
 });
 document.getElementById("input3").value = radioDeRotacionX;
 document.getElementById("input3").addEventListener("keyup", e =>{
@@ -178,3 +188,31 @@ document.getElementById("input6").addEventListener("keyup", e =>{
         movY = canvas.height/2;
     }
 });
+var x1, x2, y1, y2, puesta = false;
+canvas.addEventListener("mousedown", function(e) {
+    if(!puesta){
+        x1 = e.pageX; //set starting mouse x
+        y1 = e.pageY; //set starting mouse y
+        puesta = true;
+    }
+});
+canvas.addEventListener("mouseup", function(e) {
+    if(puesta){
+        puesta = false;
+    }
+});
+canvas.addEventListener("mousemove", function(e) {
+    if(puesta){
+        x2 = e.pageX; //new X
+        y2 = e.pageY; //new Y
+        angulo = getAngle(x1, y1, x2, y2);
+        console.log(angulo * (180/Math.PI));
+        
+    }
+});
+
+function getAngle (x1, y1, x2, y2) {
+    let distY = y1-y2; //opposite
+    let distX = x1-x2; //adjacent
+    return (Math.PI) + (Math.atan2(distY,distX))/2;
+}
