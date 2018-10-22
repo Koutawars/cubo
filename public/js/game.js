@@ -180,6 +180,7 @@ document.getElementById("input5").addEventListener("keyup", e =>{
     }
 });
 
+
 document.getElementById("input6").value = movY;
 document.getElementById("input6").addEventListener("keyup", e =>{
     if(/[0-9]+/i.test(e.srcElement.value)){
@@ -206,8 +207,6 @@ canvas.addEventListener("mousemove", function(e) {
         x2 = e.pageX; //new X
         y2 = e.pageY; //new Y
         angulo = getAngle(x1, y1, x2, y2);
-        console.log(angulo * (180/Math.PI));
-        
     }
 });
 
