@@ -192,8 +192,8 @@ document.getElementById("input6").addEventListener("keyup", e =>{
 var x1, x2, y1, y2, puesta = false;
 canvas.addEventListener("mousedown", function(e) {
     if(!puesta){
-        x1 = e.pageX; //set starting mouse x
-        y1 = e.pageY; //set starting mouse y
+        x1 = e.pageX;
+        y1 = e.pageY;
         puesta = true;
     }
 });
@@ -204,14 +204,14 @@ canvas.addEventListener("mouseup", function(e) {
 });
 canvas.addEventListener("mousemove", function(e) {
     if(puesta){
-        x2 = e.pageX; //new X
-        y2 = e.pageY; //new Y
+        x2 = e.pageX;
+        y2 = e.pageY;
         angulo = getAngle(x1, y1, x2, y2);
     }
 });
 
 function getAngle (x1, y1, x2, y2) {
-    let distY = y1-y2; //opposite
-    let distX = x1-x2; //adjacent
+    let distY = y1-y2; 
+    let distX = x1-x2; 
     return (Math.PI) + (Math.atan2(distY,distX))/2;
 }
