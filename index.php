@@ -1,1 +1,1 @@
-<?php include_once("public/index.html"); ?>
+<?php include_once(__DIR__."public/index.html"); ?>
