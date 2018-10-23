@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/Koutawars/cubo/issues"
   },
-  "homepage": "https://github.com/Koutawars/cubo#readme"
+  "homepage": "https://github.com/Koutawars/cubo#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "ffmpeg": "0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
+    "youtube-audio-stream": "^0.2.0"
+  }
 }
