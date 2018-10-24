@@ -23,9 +23,15 @@ var angulo = 0;
 
 var tam = 5;
 function setup(){
+    console.log(analyser);
 }
 
 function update(){
+    let fbc_array = new Uint8Array(analyser.frequencyBinCount);
+    analyser.getByteFrequencyData(fbc_array);
+    numScale = fbc_array[0];
+    if(numScale < 50)numScale = 50;
+    document.getElementById("input0").value = numScale;
 }
 
 
