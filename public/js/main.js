@@ -6,6 +6,7 @@ canvas.height = window.innerHeight || document.documentElement.clientWidth || do
 document.querySelector('body').appendChild(canvas);
 window.addEventListener('resize', resizeCanvas, false);
 window.addEventListener('orientationchange', resizeCanvas, false);
+var currentMusic;
 function resizeCanvas() {
     canvas.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     canvas.height = window.innerHeight || document.documentElement.clientWidth || document.body.clientWidth;
@@ -32,13 +33,26 @@ function resizeCanvas() {
     let inp = document.createElement("input");
     inp.type = "file"
     inp.accept = "audio/*";
+    inp.multiple = "multiple";
     let inp2 = document.createElement("input");
     inp2.type = "submit";
     inp2.addEventListener("click", function(e){
         e.preventDefault();
-        let url = URL.createObjectURL(inp.files[0]);  
+        currentMusic = 0;
+        let url = URL.createObjectURL(inp.files[currentMusic]);  
         audioElement.setAttribute('src', url);
         audioElement.play();
+    });
+    audioElement.addEventListener('ended', function(){
+        if(inp.files[currentMusic + 1]){
+            currentMusic += 1;
+            let url = URL.createObjectURL(inp.files[currentMusic]);  
+            audioElement.setAttribute('src', url);
+            audioElement.play();
+        }else{
+            currentMusic = 0;
+            audioElement.play();
+        }
     });
     cuadro.appendChild(inp2);
     cuadro.appendChild(inp);
