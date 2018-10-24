@@ -10,7 +10,7 @@ DEMO -----> [link](http://cubo.herokuapp.com/).
 git clone https://github.com/Koutawars/cubo.git
 ```
 ## Open
-Open with xampp/wampserver, the file index.php
+Open the index.html in the public folder 
 ### License
 
 [MIT](/LICENSE)
