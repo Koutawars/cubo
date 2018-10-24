@@ -10,6 +10,9 @@ app.use('/audio',express.static(path.resolve(__dirname + public + '/audio'))); /
 app.get('/',function(req,res){
     res.sendFile(path.resolve(__dirname + public + '/index.html')); // si se pide / llama al index
 });
+app.get('/',function(req,res){
+    res.sendFile(path.resolve(__dirname + public + '/index.html')); // si se pide / llama al index
+});
 server.listen(process.env.PORT || 5000,function(){
     console.log('escuchando en '+server.address().port);
 });

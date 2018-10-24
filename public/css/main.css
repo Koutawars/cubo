@@ -37,3 +37,8 @@ a {
 .ocultar {
     display: none;
 }
+#titulo{
+    text-align: center;
+    font-style: oblique;
+    font-size: 35px;
+}
