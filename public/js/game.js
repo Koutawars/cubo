@@ -24,14 +24,20 @@ var angulo = 0;
 
 var tam = 5;
 function setup(){
-    console.log(canvas.width);
+    console.log("*********** Creado por Kouta. *********** ");
 }
 function update(){
     if(!document.getElementById("music").paused){
         let fbc_array = new Uint8Array(analyser.frequencyBinCount);
         analyser.getByteFrequencyData(fbc_array);
-        numScale = fbc_array[0];
-        if(numScale < minimo)numScale = minimo;
+        if(canvas.width > 424){
+            numScale = fbc_array[0];
+            if(numScale < minimo)numScale = minimo;
+        }else{
+            let mult = 0.7;
+            numScale = fbc_array[0]*mult;
+            if(numScale < minimo*mult)numScale = minimo*mult;
+        }
         document.getElementById("input0").value = numScale;
     }
 }
@@ -224,6 +230,15 @@ canvas.addEventListener("mousemove", function(e) {
         x2 = e.pageX;
         y2 = e.pageY;
         angulo = getAngle(x1, y1, x2, y2);
+    }
+});
+document.getElementById("mostrar").addEventListener("click", function(e) {
+    if(document.getElementById("container").className == "ocultar"){
+        document.getElementById("container").className = "";
+        document.getElementById("mostrar").innerText = "Cerrar ajustes";
+    }else{
+        document.getElementById("container").className = "ocultar";
+        document.getElementById("mostrar").innerText = "Abrir Ajustes";
     }
 });
 

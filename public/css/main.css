@@ -8,6 +8,12 @@ div#container {
     top: 20%;
     background-color: rgba(255,255,255,1);
 }
+#mostrar{
+    position: absolute;
+    top: 14%;
+    margin-left: 10px;
+    font-size: 23px;
+}
 .clear {
     clear: both;
 }
@@ -27,4 +33,7 @@ a:visited {
 a {
     color: black;
     text-decoration: none;
+}
+.ocultar {
+    display: none;
 }
