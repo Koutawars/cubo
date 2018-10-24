@@ -9,7 +9,8 @@ var puntos = [[[1],[1],[1]],
 var position = [];
 var puntosSave = puntos;
 var trans3Dto2D = [[1,0,0],[0,1,0]];
-var numScale = 50;
+var minimo = 50;
+var numScale = minimo;
 var angleNow = 0;
 var angleSum = 0.01;
 var rotar = 3;
@@ -23,15 +24,16 @@ var angulo = 0;
 
 var tam = 5;
 function setup(){
-    console.log(analyser);
+    console.log(canvas.width);
 }
-
 function update(){
-    let fbc_array = new Uint8Array(analyser.frequencyBinCount);
-    analyser.getByteFrequencyData(fbc_array);
-    numScale = fbc_array[0];
-    if(numScale < 50)numScale = 50;
-    document.getElementById("input0").value = numScale;
+    if(!document.getElementById("music").paused){
+        let fbc_array = new Uint8Array(analyser.frequencyBinCount);
+        analyser.getByteFrequencyData(fbc_array);
+        numScale = fbc_array[0];
+        if(numScale < minimo)numScale = minimo;
+        document.getElementById("input0").value = numScale;
+    }
 }
 
 
@@ -124,7 +126,7 @@ function rotateY(angle){
 // se une dos puntos con una linea
 function unir(initial, final){
     ctx.beginPath();
-    ctx.lineWidth = 2*(numScale/50);
+    ctx.lineWidth = 2*(numScale/minimo);
     ctx.strokeStyle = '#003300';
     ctx.moveTo(initial.x,initial.y);
     ctx.lineTo(final.x,final.y);
@@ -141,7 +143,7 @@ document.getElementById("input0").addEventListener("keyup", e =>{
     if(/[0-9]+/i.test(e.srcElement.value)){
         numScale = parseInt( e.srcElement.value);
     }else{
-        numScale = 50;
+        numScale = minimo;
     }
 });
 document.getElementById("input1").value = angleSum;

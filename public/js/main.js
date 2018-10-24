@@ -20,6 +20,7 @@ function resizeCanvas() {
     audioElement.preload = true;
     audioElement.controls = true;
     audioElement.className = "cuadro";
+    audioElement.id = "music";
     source.connect(analyser);
     analyser.connect(context.destination);
     document.getElementById("container").appendChild(audioElement);
