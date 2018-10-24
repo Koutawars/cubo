@@ -5,12 +5,12 @@ body {
 div#container {
     position: absolute;
     padding: 19px;
-    top: 20%;
+    top: 14%;
     background-color: rgba(255,255,255,1);
 }
 #mostrar{
     position: absolute;
-    top: 14%;
+    top: 8%;
     margin-left: 10px;
     font-size: 23px;
 }
