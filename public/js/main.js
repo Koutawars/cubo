@@ -16,14 +16,16 @@ function resizeCanvas() {
     var audioElement = document.createElement("audio");
     var source = context.createMediaElementSource(audioElement);
     var analyser = context.createAnalyser();
+    var gainNode =  context.createGain();
     audioElement.src = "./audio/roses.mp3";
     audioElement.preload = true;
     audioElement.controls = true;
     audioElement.className = "cuadro";
     audioElement.id = "music";
     source.connect(analyser);
+    source.connect(gainNode);
     analyser.connect(context.destination);
-    
+    gainNode.connect(context.destination);
     let cuadro = document.createElement("form");
     cuadro.className = "cuadro";
     cuadro.action = "/";
