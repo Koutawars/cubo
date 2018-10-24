@@ -10,7 +10,10 @@ DEMO -----> [link](http://cubo.herokuapp.com/).
 git clone https://github.com/Koutawars/cubo.git
 ```
 ## Open
-Open the index.html in the public folder 
+Open the index.html in the public folder
+or in console with node 
+npm install
+node server/app.js
 ### License
 
 [MIT](/LICENSE)
