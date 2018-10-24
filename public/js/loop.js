@@ -1,3 +1,4 @@
+// bucle
 var loop = {
     id: null,
     lastRegister: 0,

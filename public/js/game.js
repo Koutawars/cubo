@@ -9,7 +9,6 @@ var puntos = [[[1],[1],[1]],
 var position = [];
 var puntosSave = puntos;
 var trans3Dto2D = [[1,0,0],[0,1,0]];
-
 var numScale = 50;
 var angleNow = 0;
 var angleSum = 0.01;
@@ -32,15 +31,16 @@ function update(){
 
 function draw(){
     let m, k = [];
+    // Coloca una suma de matrices para agregar un radio de rotación
     for(let i = 0; i < puntos.length; i++){
         k.push(sumMatriz(puntos[i],[[Math.floor((radioDeRotacionX/numScale))],[Math.floor((radioDeRotacionY/numScale))], [Math.floor(radioDeRotacionZ/numScale)]]));
     }
     puntos = k;
     for(let i = 0; i < puntos.length; i++){
         m = puntos[i];
-        // se escala
+        // se escala 
         m = multiMatrix(m, scale(numScale));
-        // se rota en la Z
+        // Opciones para escalar
         switch(rotar){
             case 0:
             m = multiMatrix(m, rotateY(angleNow));
@@ -74,10 +74,13 @@ function draw(){
         }
         // se pasa de 3d a 2D
         m = multiMatrix(m, trans3Dto2D);
+        // guarda los puntos en el vector position
         position[i] = {x:m[0][0] + movX, y:m[1][0] + movY}
     }
     
+    // Suma el angulo por cada ciclo
     angleNow = angleSum + angleNow % (2*Math.PI);
+    // se une con una raya para formar un cubo
     for(var i = 0; i < 4; i++){
         unir(position[i], position[(i+1)%4]);
         unir(position[i+4], position[(i+1)%4 + 4]);
@@ -85,9 +88,11 @@ function draw(){
     }
     puntos = puntosSave;
 }
+// vector de escalar
 function scale(a){
     return [[a,0,0],[0,a,0],[0,0,a]];
 }
+// vector para rotar en cualquier dirección
 function rotateL(angle, x, y, z = 0){
     let cos = Math.cos(angle);
     let sen = Math.sin(angle);
@@ -97,17 +102,20 @@ function rotateL(angle, x, y, z = 0){
             [z*x*(1-cos) - y*sen , z*y*(1-cos) + x*sen , cos + z*z*(1-cos)]
             ];
 }
+// vector para rotar en la z dando un angulo
 function rotateZ(angle){
     return [[Math.cos(angle),Math.sin(angle),0],[-Math.sin(angle),Math.cos(angle),0],[0,0,1]];
 }
+// vector para rotar en la x dando un angulo
 function rotateX(angle){
     return [[1,0,0],[0,Math.cos(angle),Math.sin(angle)],[0,-Math.sin(angle),Math.cos(angle)]];
 }
-
+// vector para rotar en la z dando un angulo
 function rotateY(angle){
     return [[Math.cos(angle),0,Math.sin(angle)],[0,1,0],[-Math.sin(angle),0, Math.cos(angle)]];
 }
 
+// se une dos puntos con una linea
 function unir(initial, final){
     ctx.beginPath();
     ctx.lineWidth = 2*(numScale/50);
@@ -116,6 +124,7 @@ function unir(initial, final){
     ctx.lineTo(final.x,final.y);
     ctx.stroke();
 }
+// eventlistener de los botones
 document.body.addEventListener("wheel", function (e) {
     numScale += e.wheelDelta > 0 ? 5: -5; 
     document.getElementById("input0").value = numScale;
@@ -210,6 +219,7 @@ canvas.addEventListener("mousemove", function(e) {
     }
 });
 
+// función para calcular el angulo entre dos puntos
 function getAngle (x1, y1, x2, y2) {
     let distY = y1-y2; 
     let distX = x1-x2; 
